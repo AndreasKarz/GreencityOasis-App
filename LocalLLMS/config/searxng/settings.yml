@@ -1,0 +1,41 @@
+# SearXNG Konfiguration — optimiert für Open WebUI Integration
+
+use_default_settings: true
+
+server:
+  secret_key: "offline-llm-stack-searxng-2024"
+  limiter: false
+  image_proxy: false
+
+search:
+  safe_search: 0
+  autocomplete: "google"
+  default_lang: "de-CH"
+  formats:
+    - html
+    - json
+
+engines:
+  - name: google
+    engine: google
+    shortcut: g
+    disabled: false
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: ddg
+    disabled: false
+
+  - name: wikipedia
+    engine: wikipedia
+    shortcut: wp
+    disabled: false
+
+  - name: bing
+    engine: bing
+    shortcut: bi
+    disabled: false
+
+ui:
+  default_theme: simple
+  default_locale: de

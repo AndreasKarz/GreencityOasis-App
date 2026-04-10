@@ -1,0 +1,15 @@
+openvino>=2024.0
+optimum[openvino]>=1.16
+diffusers>=0.27
+transformers>=4.38
+torch>=2.2
+accelerate>=0.27
+safetensors
+fastapi>=0.109
+uvicorn[standard]>=0.27
+python-multipart
+Pillow
+soundfile
+scipy
+numpy
+jinja2

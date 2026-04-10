@@ -1,0 +1,21 @@
+# ============================================================
+# Llama-Embed — Dedizierter Embedding-Server mit eingebautem Modell
+# Das GGUF-Modell wird direkt ins Image integriert (kein Volume-Mount)
+# → Einfacherer Offline-Transport, keine separate Datei nötig
+# ============================================================
+
+FROM ghcr.io/ggml-org/llama.cpp:server
+
+# Modell direkt ins Image herunterladen (~275 MB)
+ADD https://huggingface.co/nomic-ai/nomic-embed-text-v1.5-GGUF/resolve/main/nomic-embed-text-v1.5.Q8_0.gguf /models/nomic-embed-text-v1.5.gguf
+
+EXPOSE 8090
+
+ENTRYPOINT ["/llama-server"]
+CMD ["--model", "/models/nomic-embed-text-v1.5.gguf", \
+     "--port", "8090", \
+     "--host", "0.0.0.0", \
+     "--batch-size", "2048", \
+     "--ubatch-size", "2048", \
+     "--embeddings", \
+     "--ctx-size", "2048"]
