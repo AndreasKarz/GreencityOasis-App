@@ -28,4 +28,4 @@
 
 # Inspirationen
 - [App Inspiration](Design\screen.webp)
-- [Print Inspiration](Design\print.webp)
+- [Print Inspiration](Design\print.webp) und [Dribble](https://dribbble.com/shots/26684230-Green-Home-Decor-Brochure-Template)
