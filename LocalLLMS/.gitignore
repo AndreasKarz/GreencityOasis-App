@@ -1,7 +1,0 @@
-# Modelldaten und Export (zu gross für Git)
-data/
-export/
-
-# Python
-__pycache__/
-*.pyc
