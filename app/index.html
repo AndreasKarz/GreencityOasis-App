@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greencity Oasis App</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono&family=Lexend+Exa:wght@500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Background Image -->
+        <div class="background-image"></div>
+        
+        <!-- Header -->
+        <header class="header glass">
+            <div class="header-left">
+                <img src="../Design/Logo klein.svg" alt="Greencity Oasis Logo" class="logo">
+                <div class="welcome-section">
+                    <h1 class="welcome-title">Willkommen</h1>
+                    <p class="date-time" id="dateTime"></p>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="search-container">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" placeholder="Suchen..." class="search-input">
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="main-grid">
+            <!-- Sound Widget -->
+            <section class="widget widget-sound glass">
+                <div class="widget-header">
+                    <div class="widget-icon">
+                        <i data-lucide="music"></i>
+                    </div>
+                    <h2 class="widget-title">Balkon Beschallung</h2>
+                </div>
+                <div class="widget-content">
+                    <p class="sound-hint">Wähle deinen Lieblingssound für den Balkon</p>
+                    <div class="sound-options">
+                        <button class="sound-option active" data-sound="sommerwald">
+                            <i data-lucide="trees"></i>
+                            <span>Sommerwald</span>
+                        </button>
+                        <button class="sound-option" data-sound="bach">
+                            <i data-lucide="waves"></i>
+                            <span>Bach</span>
+                        </button>
+                        <button class="sound-option" data-sound="meer">
+                            <i data-lucide="cloud-rain"></i>
+                            <span>Meeresrauschen</span>
+                        </button>
+                        <button class="sound-option" data-sound="voegel">
+                            <i data-lucide="bird"></i>
+                            <span>Vogelgezwitscher</span>
+                        </button>
+                        <button class="sound-option" data-sound="regen">
+                            <i data-lucide="cloud-drizzle"></i>
+                            <span>Leichter Regen</span>
+                        </button>
+                    </div>
+                    <div class="sound-controls">
+                        <button class="btn-icon">
+                            <i data-lucide="play"></i>
+                        </button>
+                        <div class="volume-slider">
+                            <i data-lucide="volume-1"></i>
+                            <input type="range" min="0" max="100" value="50" class="slider">
+                        </div>
+                    </div>
+                    <p class="bluetooth-hint"><i data-lucide="bluetooth"></i> Bluetooth-Lautsprecher auf dem Balkon muss eingeschaltet sein</p>
+                </div>
+            </section>
+
+            <!-- Floor Plan Widget -->
+            <section class="widget widget-floorplan glass widget-large">
+                <div class="widget-header">
+                    <div class="widget-icon">
+                        <i data-lucide="home"></i>
+                    </div>
+                    <h2 class="widget-title">Wohnungsübersicht</h2>
+                </div>
+                <div class="widget-content floorplan-content">
+                    <div class="floorplan-container">
+                        <svg class="floorplan" viewBox="0 0 800 500">
+                            <!-- Walls -->
+                            <rect x="50" y="50" width="700" height="400" fill="none" stroke="#C8C3BA" stroke-width="3"/>
+                            
+                            <!-- Living Room -->
+                            <rect x="50" y="50" width="400" height="300" fill="rgba(120, 170, 140, 0.1)" stroke="#78AA8C" stroke-width="2"/>
+                            <text x="70" y="80" class="room-label">Wohnzimmer</text>
+                            
+                            <!-- Kitchen -->
+                            <rect x="450" y="50" width="300" height="200" fill="rgba(120, 170, 140, 0.1)" stroke="#78AA8C" stroke-width="2"/>
+                            <text x="470" y="80" class="room-label">Küche</text>
+                            
+                            <!-- Bedroom -->
+                            <rect x="50" y="350" width="350" height="100" fill="rgba(120, 170, 140, 0.1)" stroke="#78AA8C" stroke-width="2"/>
+                            <text x="70" y="380" class="room-label">Schlafzimmer</text>
+                            
+                            <!-- Bathroom -->
+                            <rect x="400" y="350" width="200" height="100" fill="rgba(120, 170, 140, 0.1)" stroke="#78AA8C" stroke-width="2"/>
+                            <text x="420" y="380" class="room-label">Bad</text>
+                            
+                            <!-- Balcony -->
+                            <rect x="50" y="250" width="150" height="100" fill="rgba(120, 170, 140, 0.2)" stroke="#78AA8C" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="70" y="280" class="room-label">Balkon</text>
+                            
+                            <!-- Info Icons -->
+                            <!-- Coffee Machine -->
+                            <g class="info-icon" data-item="Kaffeemaschine" data-location="Küche">
+                                <circle cx="600" cy="150" r="20" fill="#78AA8C"/>
+                                <text x="600" y="155" text-anchor="middle" fill="white" font-size="14">☕</text>
+                            </g>
+                            
+                            <!-- TV -->
+                            <g class="info-icon" data-item="Smart TV" data-location="Wohnzimmer">
+                                <circle cx="200" cy="150" r="20" fill="#78AA8C"/>
+                                <text x="200" y="155" text-anchor="middle" fill="white" font-size="14">📺</text>
+                            </g>
+                            
+                            <!-- Washing Machine -->
+                            <g class="info-icon" data-item="Waschmaschine" data-location="Bad">
+                                <circle cx="500" cy="400" r="20" fill="#78AA8C"/>
+                                <text x="500" y="405" text-anchor="middle" fill="white" font-size="14">🧺</text>
+                            </g>
+                            
+                            <!-- Vacuum -->
+                            <g class="info-icon" data-item="Staubsauger" data-location="Schlafzimmer">
+                                <circle cx="200" cy="400" r="20" fill="#78AA8C"/>
+                                <text x="200" y="405" text-anchor="middle" fill="white" font-size="14">🔌</text>
+                            </g>
+                            
+                            <!-- Ironing Board -->
+                            <g class="info-icon" data-item="Bügelbrett" data-location="Schlafzimmer">
+                                <circle cx="280" cy="400" r="20" fill="#78AA8C"/>
+                                <text x="280" y="405" text-anchor="middle" fill="white" font-size="14">👔</text>
+                            </g>
+                            
+                            <!-- Speaker -->
+                            <g class="info-icon" data-item="Bluetooth Lautsprecher" data-location="Balkon">
+                                <circle cx="100" cy="300" r="20" fill="#78AA8C"/>
+                                <text x="100" y="305" text-anchor="middle" fill="white" font-size="14">🔊</text>
+                            </g>
+                            
+                            <!-- Soundbar -->
+                            <g class="info-icon" data-item="Soundbar" data-location="Wohnzimmer">
+                                <circle cx="350" cy="200" r="20" fill="#78AA8C"/>
+                                <text x="350" y="205" text-anchor="middle" fill="white" font-size="14">🎵</text>
+                            </g>
+                            
+                            <!-- WiFi -->
+                            <g class="info-icon" data-item="WLAN Router" data-location="Wohnzimmer">
+                                <circle cx="100" cy="100" r="20" fill="#78AA8C"/>
+                                <text x="100" y="105" text-anchor="middle" fill="white" font-size="14">📶</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="legend">
+                        <h4>Legende</h4>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <span class="legend-icon">☕</span>
+                                <span>Kaffeemaschine</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">📺</span>
+                                <span>Smart TV</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">🧺</span>
+                                <span>Waschmaschine</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">🔌</span>
+                                <span>Staubsauger</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">👔</span>
+                                <span>Bügelbrett</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">🔊</span>
+                                <span>Bluetooth Lautsprecher</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">🎵</span>
+                                <span>Soundbar</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">📶</span>
+                                <span>WLAN</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instructions Widget -->
+            <section class="widget widget-instructions glass">
+                <div class="widget-header">
+                    <div class="widget-icon">
+                        <i data-lucide="book-open"></i>
+                    </div>
+                    <h2 class="widget-title">Anleitungen</h2>
+                </div>
+                <div class="widget-content">
+                    <div class="instruction-list">
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i data-lucide="coffee"></i>
+                            </div>
+                            <div class="instruction-info">
+                                <h3>Kaffeemaschine</h3>
+                                <p>Bedienung der Nespresso Maschine</p>
+                            </div>
+                            <button class="btn-ghost">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i data-lucide="tv"></i>
+                            </div>
+                            <div class="instruction-info">
+                                <h3>Smart TV & Plex</h3>
+                                <p>Filme streamen mit Plex</p>
+                            </div>
+                            <button class="btn-ghost">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i data-lucide="washing-machine"></i>
+                            </div>
+                            <div class="instruction-info">
+                                <h3>Waschmaschine</h3>
+                                <p>Programme und Einstellungen</p>
+                            </div>
+                            <button class="btn-ghost">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i data-lucide="wind"></i>
+                            </div>
+                            <div class="instruction-info">
+                                <h3>Trockner</h3>
+                                <p>Trocknungsstufen und Zeit</p>
+                            </div>
+                            <button class="btn-ghost">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="instruction-item">
+                            <div class="instruction-icon">
+                                <i data-lucide="speaker"></i>
+                            </div>
+                            <div class="instruction-info">
+                                <h3>Soundbar</h3>
+                                <p>Separate Fernbedienung</p>
+                            </div>
+                            <button class="btn-ghost">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weather Widget -->
+            <section class="widget widget-weather glass">
+                <div class="widget-header">
+                    <div class="widget-icon">
+                        <i data-lucide="cloud-sun"></i>
+                    </div>
+                    <h2 class="widget-title">Wetter Zürich-Manegg</h2>
+                    <div class="weather-tabs">
+                        <button class="weather-tab active" data-days="1">Heute</button>
+                        <button class="weather-tab" data-days="3">3 Tage</button>
+                        <button class="weather-tab" data-days="7">7 Tage</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="weather-current">
+                        <div class="weather-main">
+                            <i data-lucide="cloud-sun" class="weather-icon-large"></i>
+                            <div class="weather-temp">
+                                <span class="temp-value">18°</span>
+                                <span class="temp-condition">Teilweise bewölkt</span>
+                            </div>
+                        </div>
+                        <div class="weather-details">
+                            <div class="weather-detail">
+                                <i data-lucide="droplet"></i>
+                                <span>45%</span>
+                            </div>
+                            <div class="weather-detail">
+                                <i data-lucide="wind"></i>
+                                <span>12 km/h</span>
+                            </div>
+                            <div class="weather-detail">
+                                <i data-lucide="gauge"></i>
+                                <span>1015 hPa</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-forecast" id="weatherForecast">
+                        <div class="forecast-day">
+                            <span class="forecast-day-name">Mo</span>
+                            <i data-lucide="sun" class="forecast-icon"></i>
+                            <span class="forecast-temp">20° / 14°</span>
+                        </div>
+                        <div class="forecast-day">
+                            <span class="forecast-day-name">Di</span>
+                            <i data-lucide="cloud-sun" class="forecast-icon"></i>
+                            <span class="forecast-temp">18° / 13°</span>
+                        </div>
+                        <div class="forecast-day">
+                            <span class="forecast-day-name">Mi</span>
+                            <i data-lucide="cloud-rain" class="forecast-icon"></i>
+                            <span class="forecast-temp">16° / 12°</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Train Schedule Widget -->
+            <section class="widget widget-train glass">
+                <div class="widget-header">
+                    <div class="widget-icon">
+                        <i data-lucide="train-front"></i>
+                    </div>
+                    <h2 class="widget-title">Abfahrt Manegg</h2>
+                    <div class="transport-tabs">
+                        <button class="transport-tab active" data-type="all">Alle</button>
+                        <button class="transport-tab" data-type="tram">Tram</button>
+                        <button class="transport-tab" data-type="bus">Bus</button>
+                        <button class="transport-tab" data-type="ship">Schiff</button>
+                    </div>
+                </div>
+                <div class="widget-content">
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <span class="time">14:23</span>
+                                <span class="minutes">in 5 Min.</span>
+                            </div>
+                            <div class="schedule-line tram">
+                                <span class="line-number">14</span>
+                            </div>
+                            <div class="schedule-destination">
+                                <span class="destination">Zürich HB</span>
+                                <span class="platform">Gl. 3</span>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                            <span class="time">14:28</span>
+                                <span class="minutes">in 10 Min.</span>
+                            </div>
+                            <div class="schedule-line bus">
+                                <span class="line-number">66</span>
+                            </div>
+                            <div class="schedule-destination">
+                                <span class="destination">Enge Bf</span>
+                                <span class="platform">Gl. 1</span>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <span class="time">14:35</span>
+                                <span class="minutes">in 17 Min.</span>
+                            </div>
+                            <div class="schedule-line tram">
+                                <span class="line-number">14</span>
+                            </div>
+                            <div class="schedule-destination">
+                                <span class="destination">Zürich HB</span>
+                                <span class="platform">Gl. 3</span>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <span class="time">14:42</span>
+                                <span class="minutes">in 24 Min.</span>
+                            </div>
+                            <div class="schedule-line ship">
+                                <span class="line-number">ZSG</span>
+                            </div>
+                            <div class="schedule-destination">
+                                <span class="destination">Thalwil</span>
+                                <span class="platform">Quai 2</span>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="schedule-time">
+                                <span class="time">14:53</span>
+                                <span class="minutes">in 35 Min.</span>
+                            </div>
+                            <div class="schedule-line tram">
+                                <span class="line-number">14</span>
+                            </div>
+                            <div class="schedule-destination">
+                                <span class="destination">Zürich HB</span>
+                                <span class="platform">Gl. 3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-secondary full-width">
+                        <i data-lucide="calendar"></i>
+                        <span>Vollständiger Fahrplan</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
