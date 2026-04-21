@@ -68,8 +68,8 @@ Liste mit Veranstaltungen von [Website folgt noch] in der Nähe inkl. Datum/Zeit
 ### Restaurants
 Filterbare Liste mit Restaurants in der Nähe, z.B. italienisch, asiatisch, halal, vegetarisch etc. inkl. Anzeige des QR Codes für Google Maps und den Öffnungszeiten.
 
-### Kirchen, Moscheen, Gebetsräume 
-Nach Glaube filterbare Liste mit Kirchen, Moscheen, Gebetsräumen in der Nähe inkl. Anzeige des QR Codes für Google Maps und den Öffnungszeiten.
+### Glaubensstätten 
+Nach Religion filterbare Liste mit Kirchen, Moscheen, Gebetsräumen (gemäss den verfügbaren Sprachen) in der Nähe inkl. Anzeige des QR Codes für Google Maps und den Öffnungszeiten.
 
 ---
 
