@@ -28,7 +28,7 @@ https://developer.android.com/studio
 
 # Inspirationen
 
-* [Inspiration für die App Struktur](Design\screen aufbau.webp)
+* [Inspiration für die App Struktur](https://dribbble.com/shots/26979063-Smart-Home-Dashboard-UI-Modern-Home-Automation) `Design\screen aufbau.webp`
 * [Inspiration für die Farbgebung/visueller Eindruck](https://dribbble.com/shots/22405764-Food-Delivery-Material-You-m3-Design-system) - aber mit unseren Farben umgesetzt.
 
 https://claude.ai/chat/87ab3142-17e6-4847-a5cf-eba48600f207 

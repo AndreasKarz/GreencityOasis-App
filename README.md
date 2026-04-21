@@ -40,6 +40,7 @@ Die App bietet eine Liste von wichtigen Kontakten und Notfallnummern, die im Fal
 Wetterbericht von wetter.com für Manegg für die nächsten 7 Tage als Layer mit iFrame.
 
 ### Öffentliche Verkehrsmittel inkl. Fahrpläne
+- Aktuelle ZVV Störungenm, die Manegg betreffen, werden in Echtzeit angezeigt, damit die Gäste über mögliche Verzögerungen oder Änderungen im öffentlichen Verkehr informiert sind.
 - Zug
 - Bus
 - Seilbahn
