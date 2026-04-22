@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greencity Oasis App</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono&family=Lexend+Exa:wght@500;600&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'calm-jade': '#78AA8C',
+                        'warm-gray': '#464B50',
+                        'stone-line': '#C8C3BA',
+                        'warm-mist': '#E7E4DD',
+                        'soft-white': '#F7F7F4',
+                        'jade-50': '#EEF4F0',
+                        'jade-100': '#D6E4DB',
+                        'jade-300': '#A8C4B4',
+                        'jade-500': '#78AA8C',
+                        'jade-700': '#5C8A6F',
+                        'jade-900': '#2F4A3B',
+                        'neutral-900': '#1C1E20',
+                        'neutral-700': '#464B50',
+                        'neutral-500': '#6E7479',
+                        'neutral-300': '#C8C3BA',
+                        'neutral-200': '#E7E4DD',
+                        'neutral-100': '#F7F7F4',
+                        'success': '#5C8A6F',
+                        'amber': '#D8A864',
+                        'terracotta': '#C96A5A',
+                        'sky-slate': '#7A9DB5'
+                    },
+                    fontFamily: {
+                        'display': ['Lexend Exa', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    },
+                    borderRadius: {
+                        'sm': '6px',
+                        'md': '12px',
+                        'lg': '20px',
+                        'xl': '28px',
+                        'full': '9999px'
+                    },
+                    boxShadow: {
+                        'glass': '0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                        'widget': '0 12px 32px rgba(70, 75, 80, 0.12)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply font-body antialiased;
+            }
+        }
+        
+        @layer components {
+            .glass {
+                @apply bg-[rgba(247,247,244,0.65)] backdrop-blur-[24px] border border-[rgba(70,75,80,0.10)] shadow-glass;
+            }
+            
+            .widget {
+                @apply rounded-[20px] p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-widget;
+            }
+            
+            .btn-primary {
+                @apply flex items-center justify-center gap-3 px-6 py-4 bg-calm-jade text-soft-white rounded-full 
+                       transition-all duration-150 hover:bg-jade-700 hover:scale-105;
+            }
+            
+            .btn-secondary {
+                @apply inline-flex items-center justify-center gap-3 px-6 py-4 bg-transparent border-2 border-warm-gray 
+                       text-warm-gray font-semibold rounded-md transition-all duration-150 
+                       hover:bg-warm-mist hover:border-calm-jade hover:text-calm-jade;
+            }
+            
+            .btn-ghost {
+                @apply flex items-center justify-center w-9 h-9 bg-transparent border-none rounded-full 
+                       text-calm-jade cursor-pointer transition-all duration-150 hover:bg-jade-50;
+            }
+            
+            .tab-active {
+                @apply bg-calm-jade border-calm-jade text-soft-white;
+            }
+            
+            .tab-inactive {
+                @apply bg-transparent border-stone-line text-neutral-500 hover:border-calm-jade hover:text-calm-jade;
+            }
+            
+            .sound-option {
+                @apply flex flex-col items-center gap-2 px-4 py-4 bg-white/50 border-2 border-transparent 
+                       rounded-md cursor-pointer transition-all duration-150 min-w-[80px] 
+                       hover:bg-jade-50 hover:border-jade-300;
+            }
+            
+            .sound-option.active {
+                @apply bg-jade-100 border-calm-jade;
+            }
+            
+            .sound-option.active svg {
+                @apply text-calm-jade;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animation-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative overflow-x-hidden text-warm-gray bg-soft-white">
+    <!-- Background Image -->
+    <div class="fixed inset-0 z-[-1] bg-gradient-to-br from-jade-50 to-warm-mist" 
+         style="background-image: url('../Design/screen.webp'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-soft-white/70 backdrop-blur-sm"></div>
+    </div>
+
+    <div class="min-h-screen relative">
+        <!-- Header -->
+        <header class="glass sticky top-0 z-50 flex justify-between items-center px-12 py-6 
+                       mx-12 mt-6 mb-0 rounded-b-[20px]">
+            <div class="flex items-center gap-6">
+                <img src="../Design/Logo klein.svg" alt="Greencity Oasis Logo" class="h-12 w-auto">
+                <div>
+                    <h1 class="font-display font-semibold text-2xl uppercase tracking-widest text-calm-jade mb-1">
+                        Willkommen
+                    </h1>
+                    <p class="text-sm text-neutral-500 font-medium" id="dateTime"></p>
+                </div>
+            </div>
+            <div>
+                <div class="flex items-center gap-3 bg-white/50 border border-stone-line 
+                            rounded-full px-6 py-3 min-w-[300px] transition-all duration-150 
+                            focus-within:bg-white/80 focus-within:border-calm-jade 
+                            focus-within:shadow-[0_0_0_3px_rgba(120,170,140,0.2)]">
+                    <i data-lucide="search" class="w-5 h-5 text-neutral-500"></i>
+                    <input type="text" placeholder="Suchen..." 
+                           class="bg-transparent border-none outline-none font-body text-sm text-warm-gray w-full placeholder-neutral-500">
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid - 12 Column System for Tablet Landscape -->
+        <main class="grid grid-cols-12 gap-6 p-8 max-w-[1440px] mx-auto">
+            
+            <!-- Sound Widget (4 columns) -->
+            <section class="widget glass col-span-4 animation-fade-in" style="animation-delay: 0.1s;">
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                        <i data-lucide="music" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="font-display font-semibold text-lg uppercase tracking-wide text-warm-gray">
+                        Balkon Beschallung
+                    </h2>
+                </div>
+                <div>
+                    <p class="text-sm text-neutral-500 mb-4">Wähle deinen Lieblingssound für den Balkon</p>
+                    
+                    <div class="flex flex-wrap gap-3 mb-5">
+                        <button class="sound-option active" data-sound="sommerwald">
+                            <i data-lucide="trees" class="w-6 h-6 text-neutral-500"></i>
+                            <span class="text-xs font-medium text-neutral-700">Sommerwald</span>
+                        </button>
+                        <button class="sound-option" data-sound="bach">
+                            <i data-lucide="waves" class="w-6 h-6 text-neutral-500"></i>
+                            <span class="text-xs font-medium text-neutral-700">Bach</span>
+                        </button>
+                        <button class="sound-option" data-sound="meer">
+                            <i data-lucide="cloud-rain" class="w-6 h-6 text-neutral-500"></i>
+                            <span class="text-xs font-medium text-neutral-700">Meer</span>
+                        </button>
+                        <button class="sound-option" data-sound="voegel">
+                            <i data-lucide="bird" class="w-6 h-6 text-neutral-500"></i>
+                            <span class="text-xs font-medium text-neutral-700">Vögel</span>
+                        </button>
+                        <button class="sound-option" data-sound="regen">
+                            <i data-lucide="cloud-drizzle" class="w-6 h-6 text-neutral-500"></i>
+                            <span class="text-xs font-medium text-neutral-700">Regen</span>
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center gap-4 mb-4">
+                        <button class="btn-primary w-12 h-12" id="playButton">
+                            <i data-lucide="play" class="w-6 h-6"></i>
+                        </button>
+                        <div class="flex items-center gap-3 flex-1">
+                            <i data-lucide="volume-1" class="w-5 h-5 text-neutral-500"></i>
+                            <input type="range" min="0" max="100" value="50" id="volumeSlider"
+                                   class="flex-1 h-[6px] rounded-full bg-stone-line appearance-none cursor-pointer 
+                                          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-[18px] 
+                                          [&::-webkit-slider-thumb]:h-[18px] [&::-webkit-slider-thumb]:rounded-full 
+                                          [&::-webkit-slider-thumb]:bg-calm-jade [&::-webkit-slider-thumb]:transition-all 
+                                          [&::-webkit-slider-thumb]:duration-150 [&::-webkit-slider-thumb]:hover:bg-jade-700 
+                                          [&::-webkit-slider-thumb]:hover:scale-110">
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 text-xs text-neutral-500 p-3 bg-jade-50 rounded-sm">
+                        <i data-lucide="bluetooth" class="w-[14px] h-[14px]"></i>
+                        <span>Bluetooth-Lautsprecher auf dem Balkon muss eingeschaltet sein</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Floor Plan Widget (8 columns) -->
+            <section class="widget glass col-span-8 animation-fade-in" style="animation-delay: 0.2s;">
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                        <i data-lucide="home" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="font-display font-semibold text-lg uppercase tracking-wide text-warm-gray">
+                        Wohnungsübersicht
+                    </h2>
+                </div>
+                <div class="flex gap-6 min-h-[400px]">
+                    <div class="flex-[2]">
+                        <svg class="w-full h-auto" viewBox="0 0 800 500">
+                            <!-- Walls -->
+                            <rect x="50" y="50" width="700" height="400" fill="none" stroke="#C8C3BA" stroke-width="3"/>
+
+                            <!-- Living Room -->
+                            <rect x="50" y="50" width="400" height="300" fill="rgba(120, 170, 140, 0.1)" stroke="#78AA8C" stroke-width="2"/>
+                            <text x="70" y="80" class="text-sm font-medium" fill="#464B50">Wohnzimmer</text>
+
+                            <!-- Kitchen -->
+                            <rect x="450" y="50" width="300" height="200" fill="rgba(120, 170, 140, 0.1)" stroke="#78AA8C" stroke-width="2"/>
+                            <text x="470" y="80" class="text-sm font-medium" fill="#464B50">Küche</text>
+
+                            <!-- Bedroom -->
+                            <rect x="50" y="350" width="350" height="100" fill="rgba(120, 170, 140, 0.1)" stroke="#78AA8C" stroke-width="2"/>
+                            <text x="70" y="380" class="text-sm font-medium" fill="#464B50">Schlafzimmer</text>
+
+                            <!-- Bathroom -->
+                            <rect x="400" y="350" width="200" height="100" fill="rgba(120, 170, 140, 0.1)" stroke="#78AA8C" stroke-width="2"/>
+                            <text x="420" y="380" class="text-sm font-medium" fill="#464B50">Bad</text>
+
+                            <!-- Balcony -->
+                            <rect x="50" y="250" width="150" height="100" fill="rgba(120, 170, 140, 0.2)" stroke="#78AA8C" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="70" y="280" class="text-sm font-medium" fill="#464B50">Balkon</text>
+
+                            <!-- Info Icons -->
+                            <g class="cursor-pointer transition-all duration-150 hover:scale-110 info-icon" data-item="Kaffeemaschine" data-location="Küche">
+                                <circle cx="600" cy="150" r="20" fill="#78AA8C"/>
+                                <text x="600" y="155" text-anchor="middle" fill="white" font-size="14">☕</text>
+                            </g>
+
+                            <g class="cursor-pointer transition-all duration-150 hover:scale-110 info-icon" data-item="Smart TV" data-location="Wohnzimmer">
+                                <circle cx="200" cy="150" r="20" fill="#78AA8C"/>
+                                <text x="200" y="155" text-anchor="middle" fill="white" font-size="14">📺</text>
+                            </g>
+
+                            <g class="cursor-pointer transition-all duration-150 hover:scale-110 info-icon" data-item="Waschmaschine" data-location="Bad">
+                                <circle cx="500" cy="400" r="20" fill="#78AA8C"/>
+                                <text x="500" y="405" text-anchor="middle" fill="white" font-size="14">🧺</text>
+                            </g>
+
+                            <g class="cursor-pointer transition-all duration-150 hover:scale-110 info-icon" data-item="Staubsauger" data-location="Schlafzimmer">
+                                <circle cx="200" cy="400" r="20" fill="#78AA8C"/>
+                                <text x="200" y="405" text-anchor="middle" fill="white" font-size="14">🔌</text>
+                            </g>
+
+                            <g class="cursor-pointer transition-all duration-150 hover:scale-110 info-icon" data-item="Bügelbrett" data-location="Schlafzimmer">
+                                <circle cx="280" cy="400" r="20" fill="#78AA8C"/>
+                                <text x="280" y="405" text-anchor="middle" fill="white" font-size="14">👔</text>
+                            </g>
+
+                            <g class="cursor-pointer transition-all duration-150 hover:scale-110 info-icon" data-item="Bluetooth Lautsprecher" data-location="Balkon">
+                                <circle cx="100" cy="300" r="20" fill="#78AA8C"/>
+                                <text x="100" y="305" text-anchor="middle" fill="white" font-size="14">🔊</text>
+                            </g>
+
+                            <g class="cursor-pointer transition-all duration-150 hover:scale-110 info-icon" data-item="Soundbar" data-location="Wohnzimmer">
+                                <circle cx="350" cy="200" r="20" fill="#78AA8C"/>
+                                <text x="350" y="205" text-anchor="middle" fill="white" font-size="14">🎵</text>
+                            </g>
+
+                            <g class="cursor-pointer transition-all duration-150 hover:scale-110 info-icon" data-item="WLAN Router" data-location="Wohnzimmer">
+                                <circle cx="100" cy="100" r="20" fill="#78AA8C"/>
+                                <text x="100" y="105" text-anchor="middle" fill="white" font-size="14">📶</text>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="flex-1 p-4 bg-white/50 rounded-md">
+                        <h4 class="font-display text-sm uppercase text-warm-gray mb-3">Legende</h4>
+                        <div class="flex flex-col gap-2">
+                            <div class="flex items-center gap-3 text-sm text-neutral-700">
+                                <span class="text-base">☕</span><span>Kaffeemaschine</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-neutral-700">
+                                <span class="text-base">📺</span><span>Smart TV</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-neutral-700">
+                                <span class="text-base">🧺</span><span>Waschmaschine</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-neutral-700">
+                                <span class="text-base">🔌</span><span>Staubsauger</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-neutral-700">
+                                <span class="text-base">👔</span><span>Bügelbrett</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-neutral-700">
+                                <span class="text-base">🔊</span><span>Bluetooth Lautsprecher</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-neutral-700">
+                                <span class="text-base">🎵</span><span>Soundbar</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-sm text-neutral-700">
+                                <span class="text-base">📶</span><span>WLAN</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Instructions Widget (4 columns) -->
+            <section class="widget glass col-span-4 animation-fade-in" style="animation-delay: 0.3s;">
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                        <i data-lucide="book-open" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="font-display font-semibold text-lg uppercase tracking-wide text-warm-gray">
+                        Anleitungen
+                    </h2>
+                </div>
+                <div class="flex flex-col gap-3">
+                    <div class="instruction-item flex items-center gap-4 p-3 bg-white/50 rounded-md 
+                                transition-all duration-150 cursor-pointer hover:bg-jade-50">
+                        <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                            <i data-lucide="coffee" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-body text-sm font-semibold text-warm-gray mb-0.5">Kaffeemaschine</h3>
+                            <p class="text-xs text-neutral-500">Bedienung der Nespresso Maschine</p>
+                        </div>
+                        <button class="btn-ghost">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="instruction-item flex items-center gap-4 p-3 bg-white/50 rounded-md 
+                                transition-all duration-150 cursor-pointer hover:bg-jade-50">
+                        <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                            <i data-lucide="tv" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-body text-sm font-semibold text-warm-gray mb-0.5">Smart TV & Plex</h3>
+                            <p class="text-xs text-neutral-500">Filme streamen mit Plex</p>
+                        </div>
+                        <button class="btn-ghost">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="instruction-item flex items-center gap-4 p-3 bg-white/50 rounded-md 
+                                transition-all duration-150 cursor-pointer hover:bg-jade-50">
+                        <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                            <i data-lucide="washing-machine" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-body text-sm font-semibold text-warm-gray mb-0.5">Waschmaschine</h3>
+                            <p class="text-xs text-neutral-500">Programme und Einstellungen</p>
+                        </div>
+                        <button class="btn-ghost">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="instruction-item flex items-center gap-4 p-3 bg-white/50 rounded-md 
+                                transition-all duration-150 cursor-pointer hover:bg-jade-50">
+                        <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                            <i data-lucide="wind" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-body text-sm font-semibold text-warm-gray mb-0.5">Trockner</h3>
+                            <p class="text-xs text-neutral-500">Trocknungsstufen und Zeit</p>
+                        </div>
+                        <button class="btn-ghost">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="instruction-item flex items-center gap-4 p-3 bg-white/50 rounded-md 
+                                transition-all duration-150 cursor-pointer hover:bg-jade-50">
+                        <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                            <i data-lucide="speaker" class="w-5 h-5"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-body text-sm font-semibold text-warm-gray mb-0.5">Soundbar</h3>
+                            <p class="text-xs text-neutral-500">Separate Fernbedienung</p>
+                        </div>
+                        <button class="btn-ghost">
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weather Widget (4 columns) -->
+            <section class="widget glass col-span-4 animation-fade-in" style="animation-delay: 0.4s;">
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                        <i data-lucide="cloud-sun" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="font-display font-semibold text-lg uppercase tracking-wide text-warm-gray">
+                        Wetter Zürich-Manegg
+                    </h2>
+                    <div class="flex gap-2 ml-auto">
+                        <button class="weather-tab tab-active px-4 py-2 border rounded-full text-xs font-medium transition-all duration-150" data-days="1">Heute</button>
+                        <button class="weather-tab tab-inactive px-4 py-2 border rounded-full text-xs font-medium transition-all duration-150" data-days="3">3 Tage</button>
+                        <button class="weather-tab tab-inactive px-4 py-2 border rounded-full text-xs font-medium transition-all duration-150" data-days="7">7 Tage</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="mb-5">
+                        <div class="flex items-center gap-5 mb-4">
+                            <i data-lucide="cloud-sun" class="w-16 h-16 text-amber"></i>
+                            <div>
+                                <span class="font-display text-5xl font-semibold text-warm-gray leading-none">18°</span>
+                                <span class="text-sm text-neutral-500 block mt-1">Teilweise bewölkt</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-4 bg-white/50 rounded-md">
+                            <div class="flex items-center gap-2 text-sm text-neutral-700">
+                                <i data-lucide="droplet" class="w-[18px] h-[18px] text-calm-jade"></i>
+                                <span>45%</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-neutral-700">
+                                <i data-lucide="wind" class="w-[18px] h-[18px] text-calm-jade"></i>
+                                <span>12 km/h</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-neutral-700">
+                                <i data-lucide="gauge" class="w-[18px] h-[18px] text-calm-jade"></i>
+                                <span>1015 hPa</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3" id="weatherForecast">
+                        <div class="flex-1 flex flex-col items-center gap-2 p-3 bg-white/50 rounded-md">
+                            <span class="text-xs font-semibold text-neutral-500 uppercase">Mo</span>
+                            <i data-lucide="sun" class="w-8 h-8 text-calm-jade"></i>
+                            <span class="text-sm font-semibold text-warm-gray">20° / 14°</span>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center gap-2 p-3 bg-white/50 rounded-md">
+                            <span class="text-xs font-semibold text-neutral-500 uppercase">Di</span>
+                            <i data-lucide="cloud-sun" class="w-8 h-8 text-calm-jade"></i>
+                            <span class="text-sm font-semibold text-warm-gray">18° / 13°</span>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center gap-2 p-3 bg-white/50 rounded-md">
+                            <span class="text-xs font-semibold text-neutral-500 uppercase">Mi</span>
+                            <i data-lucide="cloud-rain" class="w-8 h-8 text-calm-jade"></i>
+                            <span class="text-sm font-semibold text-warm-gray">16° / 12°</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Train Schedule Widget (4 columns) -->
+            <section class="widget glass col-span-4 animation-fade-in" style="animation-delay: 0.5s;">
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-10 h-10 flex items-center justify-center bg-jade-100 rounded-md text-calm-jade">
+                        <i data-lucide="train-front" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="font-display font-semibold text-lg uppercase tracking-wide text-warm-gray">
+                        Abfahrt Manegg
+                    </h2>
+                    <div class="flex gap-2 ml-auto">
+                        <button class="transport-tab tab-active px-4 py-2 border rounded-full text-xs font-medium transition-all duration-150" data-type="all">Alle</button>
+                        <button class="transport-tab tab-inactive px-4 py-2 border rounded-full text-xs font-medium transition-all duration-150" data-type="tram">Tram</button>
+                        <button class="transport-tab tab-inactive px-4 py-2 border rounded-full text-xs font-medium transition-all duration-150" data-type="bus">Bus</button>
+                        <button class="transport-tab tab-inactive px-4 py-2 border rounded-full text-xs font-medium transition-all duration-150" data-type="ship">Schiff</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex flex-col gap-3 mb-4" id="scheduleList">
+                        <div class="schedule-item flex items-center gap-4 p-3 bg-white/50 rounded-md transition-all duration-150 hover:bg-jade-50" data-type="tram">
+                            <div class="flex flex-col min-w-[70px]">
+                                <span class="font-mono text-base font-semibold text-warm-gray">14:23</span>
+                                <span class="text-xs text-neutral-500">in 5 Min.</span>
+                            </div>
+                            <div class="flex items-center justify-center w-12 h-12 rounded-md font-bold text-base text-white bg-[#d92b2b]">
+                                <span>14</span>
+                            </div>
+                            <div class="flex-1 flex justify-between items-center">
+                                <span class="font-semibold text-sm text-warm-gray">Zürich HB</span>
+                                <span class="text-xs text-neutral-500">Gl. 3</span>
+                            </div>
+                        </div>
+                        <div class="schedule-item flex items-center gap-4 p-3 bg-white/50 rounded-md transition-all duration-150 hover:bg-jade-50" data-type="bus">
+                            <div class="flex flex-col min-w-[70px]">
+                                <span class="font-mono text-base font-semibold text-warm-gray">14:28</span>
+                                <span class="text-xs text-neutral-500">in 10 Min.</span>
+                            </div>
+                            <div class="flex items-center justify-center w-12 h-12 rounded-md font-bold text-base text-white bg-[#0066b3]">
+                                <span>66</span>
+                            </div>
+                            <div class="flex-1 flex justify-between items-center">
+                                <span class="font-semibold text-sm text-warm-gray">Enge Bf</span>
+                                <span class="text-xs text-neutral-500">Gl. 1</span>
+                            </div>
+                        </div>
+                        <div class="schedule-item flex items-center gap-4 p-3 bg-white/50 rounded-md transition-all duration-150 hover:bg-jade-50" data-type="tram">
+                            <div class="flex flex-col min-w-[70px]">
+                                <span class="font-mono text-base font-semibold text-warm-gray">14:35</span>
+                                <span class="text-xs text-neutral-500">in 17 Min.</span>
+                            </div>
+                            <div class="flex items-center justify-center w-12 h-12 rounded-md font-bold text-base text-white bg-[#d92b2b]">
+                                <span>14</span>
+                            </div>
+                            <div class="flex-1 flex justify-between items-center">
+                                <span class="font-semibold text-sm text-warm-gray">Zürich HB</span>
+                                <span class="text-xs text-neutral-500">Gl. 3</span>
+                            </div>
+                        </div>
+                        <div class="schedule-item flex items-center gap-4 p-3 bg-white/50 rounded-md transition-all duration-150 hover:bg-jade-50" data-type="ship">
+                            <div class="flex flex-col min-w-[70px]">
+                                <span class="font-mono text-base font-semibold text-warm-gray">14:42</span>
+                                <span class="text-xs text-neutral-500">in 24 Min.</span>
+                            </div>
+                            <div class="flex items-center justify-center w-12 h-12 rounded-md font-bold text-base text-white bg-[#0099cc]">
+                                <span>ZSG</span>
+                            </div>
+                            <div class="flex-1 flex justify-between items-center">
+                                <span class="font-semibold text-sm text-warm-gray">Thalwil</span>
+                                <span class="text-xs text-neutral-500">Quai 2</span>
+                            </div>
+                        </div>
+                        <div class="schedule-item flex items-center gap-4 p-3 bg-white/50 rounded-md transition-all duration-150 hover:bg-jade-50" data-type="tram">
+                            <div class="flex flex-col min-w-[70px]">
+                                <span class="font-mono text-base font-semibold text-warm-gray">14:53</span>
+                                <span class="text-xs text-neutral-500">in 35 Min.</span>
+                            </div>
+                            <div class="flex items-center justify-center w-12 h-12 rounded-md font-bold text-base text-white bg-[#d92b2b]">
+                                <span>14</span>
+                            </div>
+                            <div class="flex-1 flex justify-between items-center">
+                                <span class="font-semibold text-sm text-warm-gray">Zürich HB</span>
+                                <span class="text-xs text-neutral-500">Gl. 3</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-secondary w-full">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                        <span>Vollständiger Fahrplan</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
