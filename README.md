@@ -24,8 +24,8 @@ Die App bietet eine Kurzanleitung zur Bedienung der Waschmaschine und des Trockn
 
 
 
-
-
+Claude Design
+ https://www.youtube.com/watch?v=ue_ysQpklZM 
 
 
 ### Balkon Beschallung
